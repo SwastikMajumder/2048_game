@@ -138,7 +138,7 @@ def initialize_specific_board():
         [8, 16, 32, 8]
     ]
     return board
-def decide(board):
+def decide_Ai(board):
   best = -1
   best_move = None
   aval_move = []
@@ -155,11 +155,23 @@ def decide(board):
       best_move = fx[1]
   return best, best_move
 
+def decide_random(board):
+  best = -1
+  best_move = None
+  aval_move = []
+  for index, fx in enumerate([shift_up, shift_down, shift_right, shift_left]):
+    #print_board(fx(board))
+    if flatten(fx(board)) != flatten(board):
+        aval_move.append((fx, index))
+  if aval_move == []:
+    return None
+  return -1, random.choice(aval_move)[1]
+
 #board = initialize_specific_board()
 board =init()
 print_board(board)
 while True:
-  tmp = decide(board)
+  tmp = decide_random(board)
   if tmp == None:
     print("game over")
     break
